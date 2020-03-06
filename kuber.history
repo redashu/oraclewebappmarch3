@@ -1,0 +1,1000 @@
+   98  docker  kill  $(docker ps  -aq)
+   99  docker  rm   $(docker ps  -aq)
+  100  docker  ps -a
+  101  docker  run  -itd --name c1  alpine  sh 
+  102  docker  ps
+  103  docker  exec  c1  ifconfig
+  104  docker  ps
+  105  history 
+  106  docker  ps
+  107  docker  run  -itd --name c2  alpine  sh 
+  108  docker  ps
+  109  docker  exec  c2  ifconfig
+  110  docker  exec  c2  ping  172.17.0.2
+  111  docker  exec  c2  ifconfig
+  112  docker  exec  c1  ifconfig
+  113  docker  ps
+  114  docker   network   ls
+  115  docker  inspect  bridge
+  116  docker  kill  $(docker ps -aq)
+  117  docker  inspect  bridge
+  118  docker start   $(docker ps -aq)
+  119  docker ps
+  120  docker  inspect  bridge
+  121  history 
+  122  docker  network  ls
+  123  history    |   grep -i docker
+  124  history    |   grep -i web
+  125  docker  ps
+  126  netstat -nlpt
+  127  docker  run  -itd  -p  1111:80  nginx  
+  128  docker  run  -itd  -p  1112:80  nginx  
+  129  docker  network  ls
+  130  docker  network  create  ashubr  --subnet  172.19.0.0/16 
+  131  docker  network  ls
+  132  docker  run -itd  --name  ashuc11  --net ashubr  alpine  ping fb.com 
+  133  docker  exec  ashuc11  ifconfig
+  134  docker  exec  ashuc11  ping 172.17.0.3
+  135  docker  exec  ashuc11  ping 172.17.0.2
+  136  history 
+  137  docker  run -itd  --name  ashuc12  --net ashubr --ip 172.19.0.200  alpine  ping fb.com 
+  138  docker  ps  exec  -it  ashu12
+  139  docker  ps  exec  -it  ashu12 ifconfig
+  140  docker    exec  -it  ashu12 ifconfig
+  141  docker    exec  -it  ashuc12 ifconfig
+  142  history 
+  143  docker    exec  -it  ashuc12 ping  ashuc12
+  144  docker  run -itd  --name  ashuc124  --net ashubr --ip 172.19.0.200 --hostname  a.example.com   alpine  ping fb.com 
+  145  docker  run -itd  --name  ashuc124  --net ashubr --ip 172.19.0.201 --hostname  a.example.com   alpine  ping fb.com 
+  146  history 
+  147  docker  network  ls
+  148  docker kill  $(docker ps  -aq)
+  149  docker rn   $(docker ps  -aq)
+  150  docker rm   $(docker ps  -aq)
+  151  docker rm   $(docker network  ls -aq)
+  152  docker rm   $(docker network   -aq)
+  153  docker rm   $(docker network ls  -q)
+  154  docker network  rm   $(docker network ls  -q)
+  155  docker  network   ls
+  156  history 
+  157  docker  network   ls
+  158  docker  run  -it  --net  host  alpine  sh 
+  159  history 
+  160  docker  network   ls
+  161  docker  run  -it  --net  none   alpine  sh 
+  162  history 
+  163  docker  network   ls
+  164  ls
+  165  docker  ps
+  166  docker  volume  ls
+  167  docker  volume  create   ashuvol 
+  168  docker  volume  ls
+  169  docker  run  -itd  --name ashuc11 -v  ashuvol:/mydata  alpine  sh 
+  170  docker  exec  -it  ashuc11  sh 
+  171  docker  kill  ashuc11
+  172  docker  rm   ashuc11
+  173  docker  volume  ls
+  174  history 
+  175  docker  run  -itd  --name ashuc12 -v  ashuvol:/ok   alpine  sh 
+  176  docker  exec  -it  ashuc12  sh 
+  177  docker  run  -itd  --name ashuc13 -v  ashuvol:/ok1   alpine  sh 
+  178  docker  exec  -it  ashuc13  sh 
+  179  docker  volume  ls
+  180  docker  volume  inspect  ashuvol
+  181  docker  ps
+  182  docker  inspect  ashuc12
+  183  history 
+  184  docker  run  -itd --name  ashuwebapp -v  ashuvol:/myapps:ro  alpine  sh 
+  185  docker  exec  -it  ashuwebapp  sh 
+  186  docker  run  -itd --name  ashudb -v  ashuvol:/mydb:rw  alpine  sh 
+  187  ls
+  188  cd  ashuwebapp/
+  189  ls
+  190  cd  ..
+  191  docker  volume  ls
+  192  cd  /var/lib/docker/
+  193  sudo  ls
+  194  cd  volumes
+  195  sudo  cd  volumes
+  196  ls
+  197  sudo  ls
+  198  sudo -i
+  199  docker  volume  inspect  ashuvol 
+  200  cd
+  201  ls
+  202  cd  ashuwebapp/
+  203  pwd
+  204  docker  run  -it -v  /home/ec2-user/ashuwebapp:/myshare alpine sh 
+  205  cd
+  206  docker  inspect  ashuc12
+  207  history 
+  208  mkdir  pycode
+  209  cd  pycode/
+  210  vim   hello.py 
+  211  cat  hello.py 
+  212  import time
+  213  while  3  > 2:;     print("Hello world  ")
+  214      time.sleep(1)
+  215  ls
+  216  cat  hello.py 
+  217  pwd
+  218  ls
+  219  docker  run  -it  --rm  -v  hello.py
+  220  import time
+  221  docker  run  -it  --rm  -v /home/ec2-user/pycode:/code python   python  /code/hello.py 
+  222  docker  run  -it  --rm  -v /home/ec2-user/pycode:/code python   python  /code/hello.py docker  run  -it  --rm  -v /home/ec2-user/pycode:/code python   python  /code/hello.py
+  223  history 
+  224  docker  run  -itd  --name  ashudb  -e  MYSQL_ROOT_PASSWORD=docker  mysql 
+  225  docker  run  -itd  --name  ashudb1  -e  MYSQL_ROOT_PASSWORD=docker  mysql 
+  226  docker  logs   ashudb1  
+  227  docker  logs   ashudb1  -f
+  228  history 
+  229  docker  exec  -it  ashudb1  bash 
+  230  history 
+  231  ls
+  232  mkdir  mydb
+  233  docker  run  -itd  --name  ashudb3 -v /home/ec2-user/mydb:/var/lib/mysql/  -e  MYSQL_ROOT_PASSWORD=docker  mysql 
+  234  ls  mydb/
+  235  docker  exec  -it  ashudb3  mysql -u  root  -p
+  236  history 
+  237  docker  ps
+  238  sudo  systemctl enable  docker
+  239  sudo  reboot
+  240  sudo  chmod 777  /var/run/docker.sock
+  241  docker  ps
+  242  docker  ps -a
+  243  clear
+  244  history 
+  245  docker  run  -itd  --name myname --restart always  alpine  ping fb.com 
+  246  sudo  reboot
+  247  docker  ps
+  248  sudo  docker   ps
+  249  who
+  250  <<X
+  251  who
+  252  history|grep -i var
+  253  exit
+  254  docker  ps
+  255  sudo  chmod +x  /var/run/docker.sock
+  256  docker  ps
+  257  sudo  chmod 777 /var/run/docker.sock
+  258  docker ps -a
+  259  history 
+  260  docker-compose
+  261  docker 
+  262  docker-compose
+  263  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+  264  sudo  chmod  +x  /usr/bin/docker-compose 
+  265  docker-compose  -v
+  266  systemctl status  docker
+  267  history 
+  268  docker-compose  -v
+  269  history
+  270  history|clone
+  271  history
+  272  history|clone
+  273  history|grep -i git
+  274  exit
+  275  ls
+  276  mkdir   ashuday3app1
+  277  cd  ashuday3app1
+  278  ls
+  279  git  clone  https://github.com/microsoft/project-html-website
+  280  ls
+  281  vim  docker-compose.yml   
+  282  cat  docker-compose.yml 
+  283  docker-compose up  
+  284  docker-compose up   -d
+  285  docker-compose ps
+  286  ls
+  287  docker-compose ps
+  288  docker-compose  stop 
+  289  cat  docker-compose.yml 
+  290  docker-compose  ps
+  291  docker-compose  start
+  292  docker-compose  kill 
+  293  history 
+  294  docker-compose  down 
+  295  docker-compose  ps
+  296  docker-compose  up  -d
+  297  docker-compose  stop 
+  298  docker-compose  up  -d
+  299  watch  date
+  300  docker-compose ps
+  301  docker-compose logs
+  302  history 
+  303  docker-compose down 
+  304  docker  network  ls
+  305  ls
+  306  docker-compose ps
+  307  cd  
+  308  ls
+  309  docker-compose ps
+  310  cd  ashuday3app1/
+  311  docker-compose ps
+  312  ls
+  313  vim  docker-compose.yml 
+  314  ls
+  315  cat  docker-compose.yml 
+  316  version: '3.7'
+  317  services:
+  318   ashuwebapp:
+  319    image: nginx
+  320    container_name: ashuc11
+  321    volumes:
+  322     - "./project-html-website:/usr/share/nginx/html/"
+  323    ports:
+  324     - "1125:80"
+  325  cat  docker-compose.yml 
+  326  docker-compose down 
+  327  cat docker-compose.yml 
+  328  docker-compose up  -d
+  329  docker-compose ps
+  330  sudo -i
+  331  docker-compose  ps
+  332  docker-compose  up -d
+  333  docker-compose  ps
+  334  sudo  yum   install  shellinabox  
+  335  sudo yum   install  http://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/s/shellinabox-2.20-5.el7.x86_64.rpm
+  336  sudo  systemctl start  shellinabox 
+  337  sudo  systemctl start  shellinaboxd 
+  338  sudo netstat -nlpt
+  339  docker-compose ps
+  340  ls
+  341  docker-compose down 
+  342  docker-compose ps
+  343  cd  ..
+  344  ls
+  345  cd
+  346  ls
+  347  mkdir  ashuday3app2
+  348  cd  ashuday3app2
+  349  ls
+  350  git clone  https://github.com/redashu/oraclewebappmarch3
+  351  ls
+  352  cp  oraclewebappmarch3/* .
+  353  ls
+  354  ls -a
+  355  cp  oraclewebappmarch3/.dockerignore  .
+  356  ls
+  357  rm  -rvf  *
+  358  ls -a
+  359  rm  .dockerignore 
+  360  ls
+  361  git clone  https://github.com/redashu/oraclewebappmarch3
+  362  ls
+  363  cp  oraclewebappmarch3/*   .
+  364  ls
+  365  cp  oraclewebappmarch3/.dockerignore   .
+  366  ls
+  367  vim   ashucompose.yml 
+  368  ls
+  369  cat  ashucompose.yml 
+  370  vim   ashucompose.yml 
+  371  ls
+  372  cat  ashucompose.yml 
+  373  docker-compose up 
+  374  docker-compose -f  ashucompose.yml --build  up   -d 
+  375  docker-compose -f  ashucompose.yml  up  --build   -d 
+  376  history 
+  377  docker-compose -f  ashucompose.yml  ps
+  378  docker-compose -f  ashucompose.yml  down
+  379  ls
+  380  history 
+  381  docker  version
+  382  ls
+  383  docker-compose -f  ashucompose.yml ps
+  384  docker-compose -f  ashucompose.yml up -d
+  385  docker-compose -f  ashucompose.yml down
+  386  docker-compose -f  ashucompose.yml up -d
+  387  ls
+  388  docker-compose -f  ashucompose.yml down 
+  389  ls
+  390  cd
+  391  mkdir  ashuday3app4
+  392  cd  ashuday3app4/
+  393  ls
+  394  git  clone  https://github.com/redashu/oraclewebappmarch3.git
+  395  ls
+  396  vim  docker-compose.yaml 
+  397  cat  docker-compose.yaml 
+  398  version: '3.5'
+  399  services:
+  400   ashuwebapp4:
+  401    image: ashuwebapp4:v11
+  402    build: ./oraclewebappmarch3
+  403    container_name: ashuwebc44
+  404    ports:
+  405     - "9900:80"
+  406    environment:
+  407     - color=red
+  408  cat  docker-compose.yaml 
+  409  ls
+  410  docker-compose up --build  -d
+  411  docker-compose ps
+  412  history 
+  413  cat  docker-compose.yaml 
+  414  ls
+  415  vim  docker-compose.yaml 
+  416  docker-compose up -d 
+  417  vim  docker-compose.yaml 
+  418  docker-compose up -d 
+  419  vim  docker-compose.yaml 
+  420  docker-compose up -d 
+  421  docker-compose ps
+  422  ls
+  423  cat  docker-compose.yaml 
+  424  sudo -i
+  425  ls
+  426  cd
+  427  ls
+  428  mkdir  ashudayapp5
+  429  cd  ashudayapp5/
+  430  ls
+  431  vim  docker-compose.yml 
+  432  docker-compose up -d  
+  433  vim  docker-compose.yml 
+  434  docker-compose up -d  
+  435  vim  docker-compose.yml 
+  436  docker-compose up -d  
+  437  vim  docker-compose.yml 
+  438  docker-compose up -d  
+  439  docker-compose ps
+  440  docker-compose logs  ashudbc1
+  441  cat docker-compose.yml 
+  442  docker-compose logs  mariadb
+  443  docker-compose logs  mariadb -f
+  444  docker-compose logs  mariadb 
+  445  ls
+  446  cat  docker-compose.yml 
+  447  docker-compose ps
+  448  vim docker-compose.yml 
+  449  docker-compose ps
+  450  docker-compose up -d
+  451  ls
+  452  vim   a.yml 
+  453  docker-compose  -f  a.yml  up  -d  
+  454  docker-compose  -f  a.yml  ps
+  455  cat  docker-compose.yml 
+  456  clear
+  457  docker-compose ps
+  458  docker-compose -f a.yml  down
+  459  docker-compose -f a.yml  down --remove-orphans
+  460  cd
+  461  sudo curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
+  462  docker  run  -itd  --name  limitc  --memory 200m --cpu-shares 1 alpine ping fb.com 
+  463  docker  run  -itd  --name  limitc  --memory 200m alpine ping fb.com 
+  464  docker  run  -itd  --name  limit1c  --memory 200m alpine ping fb.com 
+  465  docker  stats  limit1c 
+  466  history 
+  467  docker  images
+  468  docker  save  -o   myimg.tar  alpine 
+  469  ls
+  470  ls   /
+  471  sudo  -i
+  472  docker kill  $(docker ps  -aq)
+  473  docker rm   $(docker ps  -aq)
+  474  docker rmi   $(docker images -aq)
+  475  docker rmi   $(docker images -aq) --force
+  476  docker network  rm   $(docker network ls -q) 
+  477  docke ps  -a
+  478  docker  ps  -a
+  479  docker  images
+  480  docker network ls
+  481  docker run -itd --name  ok  nginx  
+  482  docker  ps
+  483  netstat -nlpt
+  484  docker run -itd --name  ok --net host  nginx  
+  485  docker run -itd --name  ok1 --net host  nginx  
+  486  docker  ps
+  487  netstat -nlpt
+  488  docker images
+  489  docker ps
+  490  pwd
+  491  ls
+  492  cd ashudayapp5
+  493  ls
+  494  more docker-compose.yml 
+  495  docker  pull oraclelinux
+  496  docker run -it --name weblogic  oraclelinux bash 
+  497  docker commit  -m  "my ser" weblogic   ashu:weblogic
+  498  docker run -it  ashu:weblogic  bash 
+  499  docker run -it  oraclelinux bash 
+  500  cd 
+  501  ls
+  502  cd  ashuday3app
+  503  cd  ashuday3app1/
+  504  ls
+  505  vim Dockerifle
+  506   docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+  507  docker  ps
+  508  docker  logs  portainer
+  509  docker  logs  portainer -f
+  510  docker  ps
+  511  history
+  512  history|tail -10
+  513  history|tail -100
+  514  history
+  515  ls -lt
+  516  cat docker-compose.yml
+  517  exit
+  518  ls -l 
+  519  pwd
+  520  rpm -qa kubectl
+  521  kubectl version --client
+  522  kubectl
+  523  who
+  524  rpm  -q  kubectl 
+  525  kubectl 
+  526  who
+  527  curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+  528  ls
+  529  sudo mv  kubectl   /usr/bin/
+  530  sudo chmod +x  /usr/bin/kubectl 
+  531  kubectl version
+  532  kubectl version --client
+  533  kubectl version 
+  534  whoami
+  535  wget  http://
+  536  wget  http://18.214.149.42/admin.conf  
+  537  history 
+  538  ls
+  539  cat  admin.conf 
+  540  ls
+  541  kubectl  get  nodes
+  542  kubectl  get  nodes  --kubeconfig  admin.conf 
+  543  cp  -v  admin.conf   $HOME/.kube/config
+  544  kubectl  get  nodes  
+  545  kubectl get nodes
+  546  vim   $HOME/.bashrc  
+  547  cat  $HOME/.bashrc
+  548  source  $HOME/.bashrc
+  549  kubectl  get  nodes 
+  550  history 
+  551  cat  $HOME/.bashrc
+  552  kubectl  get  nodes 
+  553  docker  ps 
+  554  sudo chmod  777  /var/run/docker.sock
+  555  docker  ps
+  556  docker kill  $(docker ps -aq)
+  557  docker rm   $(docker ps -aq)
+  558  docker  run  -itd --name ok alpine ping fb.com
+  559  docker  ps
+  560  docker  stop ok
+  561  docker  ps -a
+  562  docker  run  -it --name ok1 alpine ashutoshhcode
+  563  docker  ps  
+  564  docker  ps  -a
+  565  ls
+  566  mkdir  day4pods
+  567  cd  day4pods/
+  568  ls
+  569  vim  ashupod1.yml 
+  570  cat ashupod1.yml 
+  571  cat  ashupod1.yml 
+  572  apiVersion: v1
+  573  kind: Pod
+  574  metadata:
+  575   name: ashupod1   #  pod name must be unique
+  576  spec:
+  577   containers:
+  578    - name: ashuc1   #  this can be same for every
+  579      image: nginx  #  docker image
+  580  cat  ashupod1.yml 
+  581  kubectl  create -f  ashupod1.yml 
+  582  kubectl get  pods
+  583  history |    grep -i admin
+  584  sudo -i
+  585  history |    grep -i admin
+  586  ls
+  587  kubectl get  pods
+  588  ls
+  589  kubectl get nodes 
+  590  kubectl get  pods  ashupod1 
+  591  kubectl get  pods  ashupod1 -o wide
+  592  kubectl get  pods   -o wide
+  593  kubectl get nodes
+  594  history 
+  595  kubectl describe  pods   ashupod1 
+  596  docker  ps
+  597  kubectl get  pods   ashupod1 -o wide
+  598  history 
+  599  kubectl  get  po
+  600  kubectl  get  po ashupod1 
+  601  kubectl  get  po ashupod1 -o wide
+  602  curl   http://192.168.98.1 
+  603  kubectl  get  po gulpod1 -o wide
+  604  kubectl  get  po ashupod1 -o wide
+  605  kubectl  exec  -it  ashupod1  bash 
+  606  kubectl get po ashupod1  -o wide
+  607  kubectl delete po  ashupod1 
+  608  kubectl create -f  day4pods/ashupod1.yml 
+  609  kubectl get po ashupod1  -o wide
+  610  cd  day4pods/
+  611  ls
+  612  cat  ashupod1.yml 
+  613  kubectl get pods ashupod1  --show-labels 
+  614  vim  ashupod1.yml 
+  615  cat  ashupod1.yml 
+  616  kubectl get  po ashupod1 --show-labels 
+  617  kubectl create -f  ashupod1.yml 
+  618  kubectl apply  -f  ashupod1.yml 
+  619  kubectl get  po ashupod1 --show-labels 
+  620  vim ashupod1.yml 
+  621  kubectl get  po ashupod1 --show-labels 
+  622  ls
+  623  cat  ashupod1.yml 
+  624  kubectl run  ashupod2  --image=nginx --restart=Never --dry-run 
+  625  kubectl run  ashupod2  --image=nginx --restart=Never --dry-run -o yaml 
+  626  kubectl run  ashupod2  --image=nginx --restart=Never --dry-run -o yaml          >ashupod2.yml  
+  627  history 
+  628  ls
+  629  cat  ashupod2.yml 
+  630  ls
+  631  kubectl get  po
+  632  history 
+  633  kubectl get  po  ashupod1 --show-labels 
+  634  vim ashupod1.yml 
+  635  kubectl create -f  ashupod1.yml 
+  636  kubectl apply -f  ashupod1.yml 
+  637  kubectl get  po  ashupod1 --show-labels 
+  638  vim ashupod1.yml 
+  639  kubectl apply -f  ashupod1.yml 
+  640  kubectl get  po  ashupod1 --show-labels 
+  641  ls
+  642  kubectl  create  service nodeport  ashupod1svc  --tcp 80 --dry-run -o        yaml   >ashupod1svc.yml 
+  643  ls
+  644  cat ashupod1svc.yml 
+  645  history 
+  646  kubectl get po ashupod1 --show-labels 
+  647  vim  ashupod1svc.yml 
+  648  kubectl create -f ashupod1svc.yml 
+  649  cat ashupod1svc.yml 
+  650  apiVersion: v1
+  651  kind: Service
+  652  metadata:
+  653    name: ashupod1svc
+  654  spec:
+  655    ports:
+  656    - name: "80"
+  657      port: 80
+  658      protocol: TCP
+  659      targetPort: 80   #  same as  container port  that we have given in dockerfile
+  660    selector:
+  661     x: ashuapp #  same as your pod label
+  662    type: NodePort
+  663  cat  ashupod1svc.yml 
+  664  kubectl get  svc  
+  665  history 
+  666  kubectl get  svc,po
+  667  history 
+  668  kubectl get pods ashupod1 --show-labels 
+  669  cat ashupod1.yml 
+  670  sudo -i
+  671  kubectl get  po
+  672  kubectl get  svc 
+  673  cd  day4pods/
+  674  ls
+  675  kubectl create -f  ashupod1svc.yml 
+  676  kubectl get svc
+  677  kubectl get  nodes
+  678  kubectl get po 
+  679  kubectl get  po leopod1  --show-labels 
+  680  sudo -i
+  681  ls
+  682  cd  day4pods/
+  683  ls
+  684  vim ashupod1.yml 
+  685  kubectl delete all --all
+  686  kubectl get  po 
+  687  ls
+  688  rm ashupod2.yml 
+  689  ls
+  690  cat  ashupod1.yml 
+  691  vim ashupod1.yml 
+  692  cat  ashupod1.yml 
+  693  ls
+  694  cat ashupod1svc.yml 
+  695  cat ashupod1svc.yml  >>ashupod1.yml 
+  696  vim   ashupod1.yml 
+  697  vim ashupod1.yml 
+  698  kubectl get po
+  699  kubectl get svc
+  700  kubectl create -f ashupod1.yml 
+  701  vim ashupod1.yml 
+  702  kubectl create -f ashupod1.yml 
+  703  kubectl  get po
+  704  kubectl  get svc
+  705  cat ashupod1.yml 
+  706  apiVersion: v1
+  707  kind: Pod
+  708  metadata:
+  709   name: ashupod1   #  pod name must be unique
+  710   labels:
+  711    x: ashuapp  # key value pair  will be uniq
+  712  spec:
+  713   containers:
+  714    - name: ashuc1   #  this can be same for every
+  715      image: nginx  #  docker image
+  716      ports:
+  717       - containerPort: 80    #  this is optional field but this port will be same as dockerfile port
+  718  ---
+  719  apiVersion: v1
+  720  kind: Service
+  721  metadata:
+  722    name: ashupod1svc
+  723  spec:
+  724    ports:
+  725    - name: myport
+  726      port: 80     #  this port is must  in  service  and it will be service port
+  727      protocol: TCP
+  728      targetPort: 80   #  same as  container port  that we have given in dockerfile
+  729    selector:
+  730     x: ashuapp #  same as your pod label
+  731  cat ashupod1.yml 
+  732  vim ashupod1.yml 
+  733  kubectl get svc
+  734  vim ashupod1.yml 
+  735  sudo -i
+  736  ls
+  737  cat  ashupod1.yml 
+  738  history 
+  739  ls
+  740  vim   ~/.kube/config 
+  741  kubectl get nodes
+  742  cd day4pods/
+  743  ls
+  744  cat  ashupod1.yml | head
+  745  kubectl explain  pods
+  746  history 
+  747  kubectl explain  pods.spec
+  748  kubectl get po
+  749  kubectl delete pods --all
+  750  kubectl delete svc  --all
+  751  kubectl get  pods
+  752  kubectl get  ns
+  753  kubectl  get  pods
+  754  kubectl  get  pods  -n  kube-system 
+  755  history 
+  756  kubectl create namespace   ashutoshh
+  757  kubectl get  ns
+  758  kubectl get  pods  -n  ashutoshh 
+  759  cd  day4pods/
+  760  ls
+  761  kubectl create -f  ashupod1.yml   -n  ashutoshh 
+  762  kubectl get  pods  -n  ashutoshh 
+  763  kubectl get  svc  -n  ashutoshh 
+  764  kubectl get  svc  
+  765  kubectl get  svc  -n  ashutoshh 
+  766  history 
+  767  kubectl get po
+  768  kubectl get  pods -n gurvinder 
+  769  kubectl get  all  -n gurvinder 
+  770  kubectl get  all  -n ashutoshh 
+  771  kubectl get  all  
+  772  kubectl get  all  -n ashutoshh 
+  773  cler
+  774  clear
+  775  history 
+  776  cd  day4pods/
+  777  ls
+  778  kubectl delete all --all  -n ashutoshh 
+  779  kubectl create deployment  ashudep1 --image=dockerashu/ashuwebapp:v1         --dry-run  -n  ashutoshh   -o  yaml   >ashudep1.yml 
+  780  ls
+  781  vim  ashudep1.yml 
+  782  kubectl create -f  ashudep1.yml   -n  ashutoshh 
+  783  kubectl get  deployments
+  784  kubectl get  deployments -n ashutoshh 
+  785  history 
+  786  ls
+  787  cd  day4pods/
+  788  ls
+  789  kubectl get deploy  -n ashutoshh 
+  790  kubectl get po -n ashutoshh 
+  791  kubectl get replicasets -n ashutoshh 
+  792  kubectl get deploy  -n ashutoshh 
+  793  kubectl get replicasets -n ashutoshh 
+  794  kubectl get po -n ashutoshh 
+  795  kubectl delete po ashudep1-d4d855f5-s5vwk    -n ashutoshh 
+  796  kubectl get po -n ashutoshh 
+  797  cat  ashudep1.yml 
+  798  history 
+  799  kubectl get  deploy -n ashutoshh --show-labels 
+  800  cat ashudep1.yml 
+  801  kubectl get  deploy -n ashutoshh --show-labels 
+  802  kubectl get  po  -n ashutoshh --show-labels 
+  803  kubectl get  deploy -n ashutoshh --show-labels 
+  804  kubectl expose deployment  ashudep1 --type NodePort  --port 80             -n ashutoshh 
+  805  kubectl get svc  -n ashutoshh 
+  806  history 
+  807  cat  ashudep1.yml 
+  808  ls
+  809  vim  ashudep1.yml 
+  810  kubectl get  deploy -n ashutoshh 
+  811  kubectl apply -f ashudep1.yml -n ashutoshh 
+  812  kubectl get  deploy -n ashutoshh 
+  813  kubectl get  pods -n ashutoshh 
+  814  cat  ashudep1.yml 
+  815  history 
+  816  kubectl get deploy -n ashutoshh 
+  817  ls
+  818  clear
+  819  kubectl get deploy -n ashutoshh 
+  820  kubectl edit  deploy   ashudep1 -n ashutoshh 
+  821  kubectl get deploy -n ashutoshh 
+  822  kubectl get po -n ashutoshh 
+  823  kubectl get po -n ashutoshh  -o wide 
+  824  ls
+  825  kubectl get  svc  -n ashutoshh 
+  826  kubectl edit svc ashudep1  -n ashutoshh 
+  827  kubectl get  svc  -n ashutoshh 
+  828  kubectl edit svc ashudep1  -n ashutoshh 
+  829  kubectl get  svc  -n ashutoshh 
+  830  history 
+  831  kubectl get deploy  -n ashutoshh 
+  832  kubectl get rs    -n ashutoshh 
+  833  kubectl get pods   -n ashutoshh 
+  834  kubectl get svc   -n ashutoshh 
+  835  kubectl get all -n ashutoshh 
+  836  kubectl scale deployment ashudep1 --replicas=2  -n ashutoshh 
+  837  kubectl get all -n ashutoshh 
+  838  history 
+  839  kubectl edit svc ashudep1  -n ashutoshh
+  840  kubectl  get svc  -n gurvinder 
+  841  kubectl edit svc   guridep1 -n gurvinder 
+  842  kubectl  get svc  -n gurvinder 
+  843  history 
+  844  kubectl get deploy -n ashutoshh 
+  845  cd
+  846  ls
+  847  cd  ashuday3app4
+  848  ls
+  849  cd oraclewebappmarch3/
+  850  ls
+  851  cat Dockerfile 
+  852  ls
+  853  cat  ashu.html 
+  854  cd
+  855  ls
+  856  cd  day4pods/
+  857  ls
+  858  git  clone  https://github.com/redashu/oraclewebappmarch3
+  859  ls
+  860  cd oraclewebappmarch3/
+  861  ls
+  862  cat ashu.html 
+  863  ls
+  864  cd ..
+  865  ls
+  866  cd  oraclewebappmarch3/
+  867  ls
+  868  wget https://devopedia.org/images/article/101/8323.1565281088.png
+  869  ls
+  870  history 
+  871  ls
+  872  mv  8323.1565281088.png  docker.png 
+  873  ls
+  874  cp  docker.png  /tmp/
+  875  ls
+  876  cd ..
+  877  ls
+  878  cat  ashudep1.yml 
+  879  ls
+  880  cd  oraclewebappmarch3/
+  881  l;s
+  882  ls
+  883  docker build  -t   dockerashu/ashuwebapp:v2 .
+  884  ls
+  885  history 
+  886  ls
+  887  vim Dockerfile 
+  888  docker build  -t   dockerashu/ashuwebapp:v2 .
+  889  ls
+  890  vim Dockerfile 
+  891  docker build  -t   dockerashu/ashuwebapp:v2 .
+  892  history 
+  893  ls
+  894  cat  Dockerfile 
+  895  history 
+  896  docker login -u dockerashu
+  897  docker  push   dockerashu/ashuwebapp:v2
+  898  docker logout
+  899  history 
+  900  ls
+  901  cat  Dockerfile 
+  902  ls
+  903  cd  ..
+  904  ls
+  905  kubectl get deploy  -n ashutoshh 
+  906  kubectl describe deploy ashudep1  -n ashutoshh 
+  907  kubectl edit  deploy ashudep1  -n ashutoshh 
+  908  kubectl get po -n ashutoshh 
+  909  kubectl get svc -n ashutoshh 
+  910  kubectl describe deploy ashudep1  -n ashutoshh 
+  911  kubectl get svc -n ashutoshh 
+  912  kubectl get po -n ashutoshh 
+  913  kubectl exec -it ashudep1-c5c5cd974-lxz6t  bash -n ashutoshh 
+  914  ls
+  915  cd oraclewebappmarch3/
+  916  ls
+  917  vim entrypoint.sh 
+  918  docker build  -t   dockerashu/ashuwebapp:v3 .
+  919  docker  login -u dockerashu
+  920  docker push  dockerashu/ashuwebapp:v3 
+  921  docker logout 
+  922  kubectl  edit deployments.apps   ashudep1  -n ashutoshh 
+  923  kubectl get po -n ashutoshh 
+  924  history 
+  925  who
+  926  kubectl get  nodes
+  927  kubectl get ns
+  928  kubectl get all -n ashutoshh 
+  929  history 
+  930  kubectl get all -n ashutoshh 
+  931  kubectl get po -n kube-system 
+  932  kubectl get svc  -n ashutoshh 
+  933  cat  .kube/config 
+  934  kubectl config view 
+  935  kubectl config  get-contexts 
+  936  kubectl config view 
+  937  kubectl get  serviceaccounts 
+  938  kubectl get  serviceaccounts -n  ashutoshh 
+  939  kubectl create namespace  ok
+  940  kubectl get  sa -n   ok
+  941  kubectl delete ns  ok 
+  942  kubectl api-resources 
+  943  kubectl  get  no
+  944  kubectl  get  secrets 
+  945  kubectl  get  secrets  -n  ashutoshh 
+  946  kubectl  describe   secrets default-token-tkgxx  -n  ashutoshh 
+  947  history 
+  948  ls
+  949  wget  https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+  950  ls
+  951  vim  recommended.yaml 
+  952  kubectl create -f recommended.yaml 
+  953  kubectl get  ns
+  954  kubectl  get  po  -n  kubernetes-dashboard 
+  955  kubectl get  sa  -n  kubernetes-dashboard 
+  956  kubectl get  secrets  -n kubernetes-dashboard 
+  957  kubectl get  svc  -n kubernetes-dashboard 
+  958  kubectl edit svc kubernetes-dashboard  -n kubernetes-dashboard 
+  959  kubectl get  svc  -n kubernetes-dashboard 
+  960  kubectl get  secrets  -n kubernetes-dashboard 
+  961  kubectl describe  secrets kubernetes-dashboard-token-rzdq6  -n kubernetes-dashboard 
+  962  history 
+  963  kubectl get  secrets  -n kubernetes-dashboard 
+  964  1009  wget  https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta8/aio/deploy/recommended.yaml
+  965   1010  ls
+  966   1011  vim  recommended.yaml
+  967   1012  kubectl create -f recommended.yaml
+  968   1013  kubectl get  ns
+  969   1014  kubectl  get  po  -n  kubernetes-dashboard
+  970   1015  kubectl get  sa  -n  kubernetes-dashboard
+  971   1016  kubectl get  secrets  -n kubernetes-dashboard
+  972   1017  kubectl get  svc  -n kubernetes-dashboard
+  973   1018  kubectl edit svc kubernetes-dashboard  -n kubernetes-dashboard
+  974   1019  kubectl get  svc  -n kubernetes-dashboard
+  975   1020  kubectl get  secrets  -n kubernetes-dashboard
+  976   1021  kubectl describe  secrets kubernetes-dashboard-token-rzdq6  -n kubernetes-dashboard
+  977  clear
+  978  history 
+  979  kubectl get  sa  -n kubernetes-dashboard 
+  980  vim   access.yml 
+  981  kubectl create -f  access.yml  -n kubernetes-dashboard 
+  982  kubectl get secrets -n kubernetes-dashboard 
+  983  kubectl describe secrets kubernetes-dashboard-token-rzdq6  -n kubernetes-dashboard 
+  984  ls
+  985  ls -l 
+  986  ls
+  987  cd ashudayapp5
+  988  ls
+  989  more docker-compose.yml 
+  990  ls
+  991  cd ..
+  992  ls
+  993  more access.yml 
+  994  ls -l
+  995  more recommended.yaml 
+  996   
+  997  history 
+  998  kubectl describe secrets kubernetes-dashboard-token-rzdq6  -n kubernetes-dashboard 
+  999  kubectl get svc -n  ashutoshh 
+ 1000  kubectl get svc -n  leonamespace 
+ 1001  kubectl delete all --all -n ashutoshh 
+ 1002  kubectl get  all -n ashutoshh 
+ 1003  ls
+ 1004  mkdir  day5app
+ 1005  cd  day5app/
+ 1006  ls
+ 1007  git  clone  https://github.com/redashu/oraclewebappmarch3
+ 1008  ls
+ 1009  cd  oraclewebappmarch3/
+ 1010  ls
+ 1011  cat  entrypoint.sh 
+ 1012  ls
+ 1013  vim  entrypoint.sh 
+ 1014  ls
+ 1015  cp  -v  /tmp/docker.png  .
+ 1016  ls
+ 1017  vim  entrypoint.sh 
+ 1018  ls
+ 1019  vim  ashu.html 
+ 1020  cat  ashu.html 
+ 1021  ls
+ 1022  git  add  .
+ 1023  git commit -m  "first official v1"
+ 1024  git push 
+ 1025  history 
+ 1026  ls
+ 1027  docker build  -t  dockerashu/oracleofficial:v1  .
+ 1028  sudo chmod 777 /var/run/docker.sock 
+ 1029  docker build  -t  dockerashu/oracleofficial:v1  .
+ 1030  history 
+ 1031  cat  Dockerfile 
+ 1032  history 
+ 1033  docker  login -u  dockerashu
+ 1034  docker  push dockerashu/oracleofficial:v1
+ 1035  ls
+ 1036  kubectl create deployment  ashuoracledep1 --image=
+ 1037  kubectl create deployment  ashuoracledep1 --image=dockerashu/oracleofficial:v1  -n  ashutoshh 
+ 1038  kubectl get  deploy  -n ashutoshh 
+ 1039  kubectl expose deployment ashuoracledep1  --type=NodePort --port  80  -n  ashutoshh 
+ 1040  kubectl get  svc  -n ashutoshh 
+ 1041  history 
+ 1042  kubectl get  svc  -n ashutoshh 
+ 1043  kubectl get  all -n  leonamespace 
+ 1044  history 
+ 1045  kubectl get svc 
+ 1046  sudo -i
+ 1047  history 
+ 1048  kubectl get po -n pravin 
+ 1049  kubectl get svc  -n pravin 
+ 1050  kubectl get  deploy -n namit 
+ 1051  kubectl get  po -n namit 
+ 1052  kubectl describe  po -n namit 
+ 1053  ls
+ 1054  kubectl get  deploy -n namit 
+ 1055  kubectl edit deployments.apps namitdeployment1  -n namit 
+ 1056  kubectl get  deploy -n namit 
+ 1057  docker  images
+ 1058  docker  images  |   grep -i gur
+ 1059  docker  images  |   grep -i  orac
+ 1060  kubectl  get po -n namit 
+ 1061  kubectl get svc -n namit 
+ 1062  history 
+ 1063  kubectl get  deploy  -n ashutoshh 
+ 1064  ls
+ 1065  kubectl get  deploy ashuoracledep1 --export -o yaml   -n ashutoshh 
+ 1066  kubectl get  deploy ashuoracledep1 --export -o yaml   -n ashutoshh     >ashuoracledep.yml 
+ 1067  ls
+ 1068  kubectl get  deploy ashuoracledep1 --export -o json  -n ashutoshh     >ashuoracledep.json 
+ 1069  kubectl get  deploy ashuoracledep1 --export -o json  -n ashutoshh 
+ 1070  history 
+ 1071  ls
+ 1072  vim  ashuoracledep.yml 
+ 1073  kubectl apply -f  ashuoracledep.yml -n ashutoshh 
+ 1074  vim  ashuoracledep.yml 
+ 1075  kubectl get  deploy ashuoracledep1 --export -o yaml   -n ashutoshh 
+ 1076  history 
+ 1077  ls
+ 1078  vim  ashu.html 
+ 1079  ls
+ 1080  history 
+ 1081  history  |  grep -i  dockerashu
+ 1082  docker build  -t  dockerashu/oracleofficial:v1 .
+ 1083  history 
+ 1084  docker login -u dockerashu
+ 1085  docker push  dockerashu/oracleofficial:v1 
+ 1086  docker logout 
+ 1087  history 
+ 1088  kubectl get  svc -n ashutoshh 
+ 1089  kubectl rollout restart deployment ashuoracledep1  -n  ashutoshh 
+ 1090  kubectl rollout status deployment ashuoracledep1  -n  ashutoshh 
+ 1091  kubectl get  po -n ashutoshh 
+ 1092  history 
+ 1093   kubectl rollout restart deployment ashuoracledep1  -n  ashutoshh
+ 1094  kubectl get  po -n ashutoshh 
+ 1095  history 
+ 1096  ls
+ 1097  history   >kuber.history 
